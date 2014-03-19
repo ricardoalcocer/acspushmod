@@ -3,7 +3,7 @@
 Titanium CommonJS Library to register device for ACS Push Notifications.  Simply add this file to your project and follow the usage instructions below.
 
 ## Motivation
-Push notifications with Titanium is sometimes a bit esoteric.  With this library I'm simply trying to make it super easy.
+Push notifications with Titanium are sometimes a bit esoteric.  With this library I'm simply trying to make it super easy to implement
 
 ## Status
 This is a work in progress.  So far I have only tested on Android device (and it works).  I have not reason to believe it won't work on iOS, but haven't tested yet.
@@ -12,7 +12,7 @@ This is a work in progress.  So far I have only tested on Android device (and it
 Before you use this library, you need to:
 
 * Make sure your Titanium App is provisioned for Cloud Services.
-* Obtain your Google Cloud Messaging credentials and Apple Push Notifications Certificate as explined [here](http://docs.appcelerator.com/titanium/3.0/#!/guide/Push_Notifications)
+* Obtain your Google Cloud Messaging credentials and Apple Push Notifications Certificate as explained [here](http://docs.appcelerator.com/titanium/3.0/#!/guide/Push_Notifications)
 
 ## Usage
 
@@ -57,7 +57,7 @@ Before you use this library, you need to:
 
 
 ## Credits
-This module is based on code by my buddy [Pablo Rodríguez](https://github.com/pablorr18), now with some additional sugar converted into a reusable CommonJS Module.
+This module is based on code by my buddy [Pablo Rodríguez](https://github.com/pablorr18), now with some additional sugar and converted into a reusable CommonJS Module.
 
 ## License
 Licensed under the terms of the [MIT License](alco.mit-license.org)
