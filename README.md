@@ -58,3 +58,6 @@ Before you use this library, you need to:
 
 ## Credits
 This module is based on code by my buddy [Pablo Rodríguez](https://github.com/pablorr18), now with some additional sugar converted into a reusable CommonJS Module.
+
+## License
+Licensed under the terms of the [MIT License](alco.mit-license.org)
