@@ -61,39 +61,38 @@ ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFo
                 console.log("push notification received: "+JSON.stringify(e.data));
             }
         });
-    }else if (OS_BLACKBERRY){
+    } else if (OS_BLACKBERRY) {
         Ti.BlackBerry.createPushService({
-			appId : blackberryOptions.appId,
-			ppgUrl : blackberryOptions.ppgUrl,
-			usePublicPpg : blackberryOptions.usePublicPpg,
-			launchApplicationOnPush : blackberryOptions.launchApplicationOnPush,
-			onSessionCreated : function(e) {
-				console.log('Session Created');
-			},
-			onChannelCreated : function(e) {
-				console.log('Channel Created\nMessage: ' + e.message + '\nToken: ' + e.token);
+            appId : blackberryOptions.appId,
+            ppgUrl : blackberryOptions.ppgUrl,
+            usePublicPpg : blackberryOptions.usePublicPpg,
+            launchApplicationOnPush : blackberryOptions.launchApplicationOnPush,
+            onSessionCreated : function(e) {
+                console.log('Session Created');
+            },
+            onChannelCreated : function(e) {
+                console.log('Channel Created\nMessage: ' + e.message + '\nToken: ' + e.token);
                 token = e.token;
-                that.token=token;
+                that.token = token;
                 console.log("Device Token: " + token);
-                loginToACS(that.acsuid,that.acspwd,token,channel_name);
-			},
-			onPushReceived : function(e) {
-				onReceive(e.data);
-				e.source.removeAllPushes();
-			},
-			onConfigError : function(e) {
-				console.log('ERROR\nTitle: ' + e.errorTitle + +'\nMsg: ' + e.errorMessage);
-		
-			},
-			onError : function(e) {
-				console.log('ERROR\nTitle: ' + e.errorTitle + +'\nMsg: ' + e.errorMessage);
-			},
-			onAppOpened : function(e) {
-				onLaunched(e.data);
-		
-				e.source.removePush(e.pushId);
-			}
-		});
+                loginToACS(that.acsuid, that.acspwd, token, channel_name);
+            },
+            onPushReceived : function(e) {
+                onReceive(e.data);
+                e.source.removeAllPushes();
+            },
+            onConfigError : function(e) {
+                console.log('ERROR\nTitle: ' + e.errorTitle + +'\nMsg: ' + e.errorMessage);
+            },
+            onError : function(e) {
+                console.log('ERROR\nTitle: ' + e.errorTitle + +'\nMsg: ' + e.errorMessage);
+            },
+            onAppOpened : function(e) {
+                onLaunched(e.data);
+
+                e.source.removePush(e.pushId);
+            }
+        });
     } else {
         alert("Push notification not implemented yet into acspushmod for " + Ti.Platform.osname);
     }
