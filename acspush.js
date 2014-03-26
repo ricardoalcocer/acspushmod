@@ -2,6 +2,7 @@
     ACSPush : Module to register iOS or Android device for ACS Push Notifications
     Based on code by Pablo Rodríguez from lineartpr.com
     Modified by Ricardo Alcocer - @ricardoalcocer
+    Blackberry support added by Hazem Khaled - @hazemkhaled
 
     Before being able to use this module you need to obtain your push notification keys:
     http://docs.appcelerator.com/titanium/3.0/#!/guide/Push_Notifications
