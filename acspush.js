@@ -10,8 +10,8 @@
 var Cloud = require('ti.cloud');
 
 function ACSPush(acsuid,acspwd){
-    this.acsuid=acsuid;
-    this.acspwd=acspwd;
+    this.acsuid=acsuid || false;
+	this.acspwd=acspwd || false;
     this.token='';
 }
 
@@ -120,6 +120,11 @@ ACSPush.prototype.getToken=function(){
 }
 
 function loginToACS(acsuid,acspwd,token,channel_name){
+	if (!acsuid && !acspwd) {
+		console.log("loginToACS -> subscribe as guest");
+		subscribeForPushNotifications(token, channel_name, true);
+		return;
+	}
     Cloud.Users.login({
         login: acsuid,
         password: acspwd
@@ -134,18 +139,24 @@ function loginToACS(acsuid,acspwd,token,channel_name){
     });
 };
 
-function subscribeForPushNotifications(token,channel_name){
-    Cloud.PushNotifications.subscribe({
-        channel: channel_name,
-        type: OS_IOS ? 'ios' : Ti.Platform.osname, // osname return iphone / ipad on iOS
-        device_token: token
-    }, function (e) {
-        if (e.success) {
-            console.log('subscribeForPushNotifications -> Status: Successful [' + channel_name + ']');
-        }else{
-            console.log('subscribeForPushNotifications -> Error '+token+'(subscribeToServerPush) :\\n' + ((e.error && e.message) || JSON.stringify(e)));
-        }
-    });
+function subscribeForPushNotifications(token, channel_name, subscribeAsGuest) {
+	var prams = {
+		channel : channel_name,
+		type : OS_IOS ? 'ios' : Ti.Platform.osname, // osname return iphone / ipad on iOS
+		device_token : token
+	};
+	var callBack = function(e) {
+		if (e.success) {
+			console.log('subscribeForPushNotifications -> Status: Successful [' + channel_name + ']');
+		} else {
+			console.log('subscribeForPushNotifications -> Error ' + token + '(subscribeToServerPush) :\\n' + ((e.error && e.message) || JSON.stringify(e)));
+		}
+	};
+	if (subscribeAsGuest) {
+		Cloud.PushNotifications.subscribeToken(prams, callBack);
+	} else {
+		Cloud.PushNotifications.subscribe(prams, callBack);
+	}
 };
 
 exports.ACSPush=ACSPush;
