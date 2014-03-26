@@ -137,7 +137,7 @@ function loginToACS(acsuid,acspwd,token,channel_name){
 function subscribeForPushNotifications(token,channel_name){
     Cloud.PushNotifications.subscribe({
         channel: channel_name,
-        type: OS_ANDROID?'android':'ios',
+        type: OS_IOS ? 'ios' : Ti.Platform.osname, // osname return iphone / ipad on iOS
         device_token: token
     }, function (e) {
         if (e.success) {
