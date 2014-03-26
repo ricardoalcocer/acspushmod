@@ -59,7 +59,7 @@ Before you use this library, you need to:
 	var ACSPush=new ACSP.ACSPush('your_acs_admin_uid','your_acs_admin_pwd');
 	
 	// or make it as guest
-	//var ACSPush=new ACSP.ACSPush('your_acs_admin_uid','your_acs_admin_pwd');
+	//var ACSPush=new ACSP.ACSPush();
 	
 	// set the channel to subscribe to
 	var channel='All users';
