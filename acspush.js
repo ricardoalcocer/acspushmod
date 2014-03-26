@@ -10,12 +10,12 @@
 var Cloud = require('ti.cloud');
 
 function ACSPush(acsuid,acspwd){
-    this.acsuid=acsuid;
-    this.acspwd=acspwd;
+    this.acsuid=acsuid || false;
+	this.acspwd=acspwd || false;
     this.token='';
 }
 
-ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFocused,androidOptions){
+ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFocused,androidOptions,blackberryOptions){
     var that=this;
     var token='';
     if(OS_ANDROID){
@@ -40,7 +40,7 @@ ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFo
         CloudPush.addEventListener('callback', onReceive);
         CloudPush.addEventListener('trayClickLaunchedApp', onLaunched);
         CloudPush.addEventListener('trayClickFocusedApp', onFocused);
-    }else{
+    }else if (OS_IOS){
         Titanium.Network.registerForPushNotifications({
             types: [
                 Titanium.Network.NOTIFICATION_TYPE_BADGE,
@@ -61,6 +61,40 @@ ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFo
                 console.log("push notification received: "+JSON.stringify(e.data));
             }
         });
+    } else if (OS_BLACKBERRY) {
+        Ti.BlackBerry.createPushService({
+            appId : blackberryOptions.appId,
+            ppgUrl : blackberryOptions.ppgUrl,
+            usePublicPpg : blackberryOptions.usePublicPpg,
+            launchApplicationOnPush : blackberryOptions.launchApplicationOnPush,
+            onSessionCreated : function(e) {
+                console.log('Session Created');
+            },
+            onChannelCreated : function(e) {
+                console.log('Channel Created\nMessage: ' + e.message + '\nToken: ' + e.token);
+                token = e.token;
+                that.token = token;
+                console.log("Device Token: " + token);
+                loginToACS(that.acsuid, that.acspwd, token, channel_name);
+            },
+            onPushReceived : function(e) {
+                onReceive(e.data);
+                e.source.removeAllPushes();
+            },
+            onConfigError : function(e) {
+                console.log('ERROR\nTitle: ' + e.errorTitle + +'\nMsg: ' + e.errorMessage);
+            },
+            onError : function(e) {
+                console.log('ERROR\nTitle: ' + e.errorTitle + +'\nMsg: ' + e.errorMessage);
+            },
+            onAppOpened : function(e) {
+                onLaunched(e.data);
+
+                e.source.removePush(e.pushId);
+            }
+        });
+    } else {
+        alert("Push notification not implemented yet into acspushmod for " + Ti.Platform.osname);
     }
 }
 
@@ -86,6 +120,11 @@ ACSPush.prototype.getToken=function(){
 }
 
 function loginToACS(acsuid,acspwd,token,channel_name){
+	if (!acsuid && !acspwd) {
+		console.log("loginToACS -> subscribe as guest");
+		subscribeForPushNotifications(token, channel_name, true);
+		return;
+	}
     Cloud.Users.login({
         login: acsuid,
         password: acspwd
@@ -100,18 +139,24 @@ function loginToACS(acsuid,acspwd,token,channel_name){
     });
 };
 
-function subscribeForPushNotifications(token,channel_name){
-    Cloud.PushNotifications.subscribe({
-        channel: channel_name,
-        type: OS_ANDROID?'android':'ios',
-        device_token: token
-    }, function (e) {
-        if (e.success) {
-            console.log('subscribeForPushNotifications -> Status: Successful [' + channel_name + ']');
-        }else{
-            console.log('subscribeForPushNotifications -> Error '+token+'(subscribeToServerPush) :\\n' + ((e.error && e.message) || JSON.stringify(e)));
-        }
-    });
+function subscribeForPushNotifications(token, channel_name, subscribeAsGuest) {
+	var prams = {
+		channel : channel_name,
+		type : OS_IOS ? 'ios' : Ti.Platform.osname, // osname return iphone / ipad on iOS
+		device_token : token
+	};
+	var callBack = function(e) {
+		if (e.success) {
+			console.log('subscribeForPushNotifications -> Status: Successful [' + channel_name + ']');
+		} else {
+			console.log('subscribeForPushNotifications -> Error ' + token + '(subscribeToServerPush) :\\n' + ((e.error && e.message) || JSON.stringify(e)));
+		}
+	};
+	if (subscribeAsGuest) {
+		Cloud.PushNotifications.subscribeToken(prams, callBack);
+	} else {
+		Cloud.PushNotifications.subscribe(prams, callBack);
+	}
 };
 
 exports.ACSPush=ACSPush;
