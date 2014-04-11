@@ -1,0 +1,9 @@
+{
+    "description": "ACS Push Notifications Module",
+    "directories": {
+        "lib": "."
+    },
+    "main": "acspush",
+    "name": "acspush",
+    "version": "1.0.0"
+}

@@ -12,6 +12,17 @@ This library support Push Notifications via ACS for iOS, Android and Blackberry.
 * Obtain your Google Cloud Messaging credentials and Apple Push Notifications Certificate as explained [here](http://docs.appcelerator.com/titanium/3.0/#!/guide/Push_Notifications)
 * Request BlackBerry 10 appId [docs](https://gist.github.com/pec1985/8ad59783cd5b4adc45a2), official support in 3.3.0.GA
 
+## Installation
+You could simply grab the acspush.js file and drop it into your project folder, for Titanium Classic somewhere inside **/Resources**, and for Alloy inside the **/app/lib** folder. 
+
+I'm also providing the module as an actual Module Package.  To use this one, create (if you don't already have it) a modules folder in the same level as your tiapp.xml.  Then copy the commonjs folder into the modules folder.
+
+After doing this, open your tiapp.xml file, look for the modules section and add the module:
+
+	<module platform="commonjs" version="1.0.0">com.alcoapps.acspushmod</module>
+	
+> NOTE: If you don't care about the module version you can simply leave out the version argument
+
 ## Usage
 
 	// set android-only options
