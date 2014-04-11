@@ -3,7 +3,7 @@
     "directories": {
         "lib": "."
     },
-    "main": "acspush",
-    "name": "acspush",
+    "main": "com.alcoapps.acspushmod",
+    "name": "com.alcoapps.acspushmod",
     "version": "1.0.0"
 }
