@@ -79,11 +79,22 @@ ACSPush.registerDevice(channel,onReceive,onLaunched,onFocused,androidOptions,bla
 
 ## Sending messages to your subscribers
 
+### Using the ACS Dashboard
+
 To send to your iOS or Android registered devices simply log on to your ACS Dashboard, go to the Push Notifications Tab, fill out the screen and send.
 
 ![acsiosandroid](http://s27.postimg.org/5ixtazxwz/Screen_Shot_2014_03_31_at_11_51_28_AM.png)
 
-To send to your Blackberry registered devices, you can use a [web-based form](https://0a247e8f40a42e51d63974fe36709dea14d95fab.cloudapp.appcelerator.com/?#) ([Source Code here](https://github.com/pec1985/BB10-Push-Server)) created by [Pedro Enrique](https://github.com/pec1985).
+### Sending to Blackberry subscribers
+
+To send to your Blackberry registered devices, you can use [this node.js script](https://github.com/pec1985/BB10-Push-Server) created by [Pedro Enrique](https://github.com/pec1985).
+
+### Sending from other apps or creating your own console
+
+If you wish to send Push Notifications from other apps, or as a result of an operation on your website or back-end service, you can use any of these scripts:
+
+* PHP : [https://github.com/ricardoalcocer/acsphppushnotifications](https://github.com/ricardoalcocer/acsphppushnotifications) 
+* PERL : [http://ulizama.com/2014/05/using-perl-to-send-acs-push-notifications/](http://ulizama.com/2014/05/using-perl-to-send-acs-push-notifications/)
 
 ## Credits
 This module is based on code by my buddy [Pablo Rodríguez](https://github.com/pablorr18), now with some additional sugar and converted into a reusable CommonJS Module.
