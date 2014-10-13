@@ -76,6 +76,8 @@ var channel='All users';
 // register this device
 ACSPush.registerDevice(channel,onReceive,onLaunched,onFocused,androidOptions,blackberryOptions);
 ```
+// unregister this device
+ACSPush.unsubscribeFromChannel(channel,token,onSuccess,onFail);
 
 ## Sending messages to your subscribers
 
