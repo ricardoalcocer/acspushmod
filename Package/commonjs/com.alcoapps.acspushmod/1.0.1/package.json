@@ -1,0 +1,9 @@
+{
+    "description": "ACS Push Notifications Module",
+    "directories": {
+        "lib": "."
+    },
+    "main": "com.alcoapps.acspushmod",
+    "name": "com.alcoapps.acspushmod",
+    "version": "1.0.1"
+}
