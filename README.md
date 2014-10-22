@@ -13,14 +13,14 @@ This library support Push Notifications via ACS for iOS, Android and Blackberry.
 * Request BlackBerry 10 appId [docs](https://gist.github.com/pec1985/8ad59783cd5b4adc45a2), official support in 3.3.0.GA
 
 ## Installation
-You could simply grab the acspush.js file and drop it into your project folder, for Titanium Classic somewhere inside **/Resources**, and for Alloy inside the **/app/lib** folder. 
+You could simply grab the acspush.js file and drop it into your project folder, for Titanium Classic somewhere inside **/Resources**, and for Alloy inside the **/app/lib** folder.
 
 I'm also providing the module as an actual Module Package.  To use this one, create (if you don't already have it) a modules folder in the same level as your tiapp.xml.  Then copy the commonjs folder into the modules folder.
 
 After doing this, open your tiapp.xml file, look for the modules section and add the module:
 
 	<module platform="commonjs" version="1.0.0">com.alcoapps.acspushmod</module>
-	
+
 > NOTE: If you don't care about the module version you can simply leave out the version argument
 
 ## Usage
@@ -96,8 +96,9 @@ To send to your Blackberry registered devices, you can use [this node.js script]
 
 If you wish to send Push Notifications from other apps, or as a result of an operation on your website or back-end service, you can use any of these scripts:
 
-* PHP : [https://github.com/ricardoalcocer/acsphppushnotifications](https://github.com/ricardoalcocer/acsphppushnotifications) 
+* PHP : [https://github.com/ricardoalcocer/acsphppushnotifications](https://github.com/ricardoalcocer/acsphppushnotifications)
 * PERL : [http://ulizama.com/2014/05/using-perl-to-send-acs-push-notifications/](http://ulizama.com/2014/05/using-perl-to-send-acs-push-notifications/)
+* .NET : [https://github.com/Xadeu/ACSPushNotifications](https://github.com/Xadeu/ACSPushNotifications)
 
 ## Credits
 This module is based on code by my buddy [Pablo Rodríguez](https://github.com/pablorr18), now with some additional sugar and converted into a reusable CommonJS Module.
