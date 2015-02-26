@@ -128,7 +128,7 @@ ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFo
 ACSPush.prototype.unsubscribeFromChannel=function(channel_name,token,onSuccess,onFail){
 
     var that=this;
-    Cloud.PushNotifications.unsubscribeToken({
+    Cloud.PushNotifications.unsubscribe({
         channel: channel_name,
         device_token: token
     }, function (e) {
