@@ -2,7 +2,7 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0.1
+version: 1.0.2
 description: ACS Push Notifications Module
 author: Ricardo Alcocer
 license: MIT License
@@ -14,4 +14,4 @@ name: com.alcoapps.acspushmod
 moduleid: com.alcoapps.acspushmod
 guid: 8afd7e72-c3be-4d2a-aa94-caaf63d5b3e2
 platform: commonjs
-minsdk: 3.2.0.GA
+minsdk: 3.5.1.GA

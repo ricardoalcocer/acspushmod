@@ -33,6 +33,46 @@ var androidOptions={
     showTrayNotification:true,
     showTrayNotificationsWhenFocused:false,
     singleCallback:true
+};
+
+// set ios-only options. 
+if (Ti.Platform.name == "iPhone OS") {
+    //Sets interactive notifications as well if iOS8 and above. Interactive notifications is optional.
+    if(parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
+        var thumbUpAction = Ti.App.iOS.createUserNotificationAction({
+            identifier: "THUMBUP_IDENTIFIER",
+            title: "Agree",
+            activationMode: Ti.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_BACKGROUND,
+            destructive: false,
+            authenticationRequired: false
+        });
+
+        var thumbDownAction = Ti.App.iOS.createUserNotificationAction({
+            identifier: "THUMBDOWN_IDENTIFIER",
+            title: "Disagree",
+            activationMode: Ti.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_BACKGROUND,
+            destructive: false,
+            authenticationRequired: false
+        });
+
+        var thumbUpDownCategory = Ti.App.iOS.createUserNotificationCategory({
+            identifier: "THUMBUPDOWN_CATEGORY",
+         // The following actions will be displayed for an alert dialog
+            actionsForDefaultContext: [thumbUpAction, thumbDownAction],
+         // The following actions will be displayed for all other notifications
+            actionsForMinimalContext: [thumbUpAction, thumbDownAction]
+        }); 
+        
+        var iosOptions = {
+            types: [Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT, Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND],
+            categories: [thumbUpDownCategory]
+        };
+    } 
+    else { //No support for interactive notifications, omit categories
+        var iosOptions = {
+            types: [Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT, Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND]
+        };  
+    }
 }
 
 // set blackberry-only options
@@ -41,25 +81,25 @@ var blackberryOptions={
     ppgUrl : "http://cp4427.pushapi.eval.blackberry.com",
     usePublicPpg : true,
     launchApplicationOnPush : true
-}
+};
 
 // set cross-platform event
 var onReceive=function(evt){
     alert('A push notification was received!');
     console.log('A push notification was received!' + JSON.stringify(evt));
-}
+};
 
 // set android-only event
 var onLaunched=function(evt){
     alert('A push notification was received - onLaunched');
     console.log('A push notification was received!' + JSON.stringify(evt));
-}
+};
 
 // set android-only event
 var onFocused=function(evt){
     alert('A push notification was received - onFocused');
     console.log('A push notification was received!' + JSON.stringify(evt));
-}
+};
 
 // load library
 var ACSP=require('acspush');
@@ -74,7 +114,7 @@ var ACSPush=new ACSP.ACSPush('your_acs_admin_uid','your_acs_admin_pwd');
 var channel='All users';
 
 // register this device
-ACSPush.registerDevice(channel,onReceive,onLaunched,onFocused,androidOptions,blackberryOptions);
+ACSPush.registerDevice(channel,onReceive,onLaunched,onFocused,androidOptions,iosOptions,blackberryOptions);
 
 // unregister this device
 ACSPush.unsubscribeFromChannel(channel,token,onSuccess,onFail);
@@ -87,6 +127,9 @@ ACSPush.unsubscribeFromChannel(channel,token,onSuccess,onFail);
 To send to your iOS or Android registered devices simply log on to your ACS Dashboard, go to the Push Notifications Tab, fill out the screen and send.
 
 ![acsiosandroid](http://s27.postimg.org/5ixtazxwz/Screen_Shot_2014_03_31_at_11_51_28_AM.png)
+
+For more information on interactive notifications, refer to:
+http://docs.appcelerator.com/titanium/latest/#!/guide/iOS_Interactive_Notifications
 
 ### Sending to Blackberry subscribers
 
