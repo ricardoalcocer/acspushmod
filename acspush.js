@@ -10,6 +10,10 @@
 
 var Cloud = require('ti.cloud');
 
+var ANDROID = Ti.Platform.name === 'android';
+var IOS = !ANDROID && (Ti.Platform.name === 'iPhone OS');
+var BLACKBERRY = !ANDROID && !IOS && (Ti.Platform.name === 'blackberry');
+
 function ACSPush(acsuid,acspwd){
     this.acsuid=acsuid || false;
 	this.acspwd=acspwd || false;
@@ -36,7 +40,7 @@ ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFo
         console.log("push notification received: " + JSON.stringify(e.data));
     }
 
-    if (OS_ANDROID){
+    if (ANDROID){
         var CloudPush = require('ti.cloudpush');
         CloudPush.retrieveDeviceToken({
             success: deviceTokenSuccess,
@@ -52,7 +56,7 @@ ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFo
         CloudPush.addEventListener('trayClickLaunchedApp', onLaunched);
         CloudPush.addEventListener('trayClickFocusedApp', onFocused);
 
-    } else if (OS_IOS){
+    } else if (IOS){
         // Check if the device is running iOS 8 or later
         if (parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
             function registerForPush() {
@@ -85,7 +89,7 @@ ACSPush.prototype.registerDevice=function(channel_name,onReceive,onLaunched,onFo
             });
         }
 
-    } else if (OS_BLACKBERRY) {
+    } else if (BLACKBERRY) {
         Ti.BlackBerry.createPushService({
             appId : blackberryOptions.appId,
             ppgUrl : blackberryOptions.ppgUrl,
@@ -164,7 +168,7 @@ function loginToACS(acsuid,acspwd,token,channel_name){
 function subscribeForPushNotifications(token, channel_name, subscribeAsGuest) {
 	var prams = {
 		channel : channel_name,
-		type : OS_IOS ? 'ios' : Ti.Platform.osname, // osname return iphone / ipad on iOS
+		type : IOS ? 'ios' : Ti.Platform.osname, // osname return iphone / ipad on iOS
 		device_token : token
 	};
 	var callBack = function(e) {
