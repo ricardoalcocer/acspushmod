@@ -26,19 +26,19 @@ After doing this, open your tiapp.xml file, look for the modules section and add
 ## Usage
 
 ```js
-// set android-only options
-var androidOptions={
-    focusAppOnPush:false,
-    showAppOnTrayClick:true,
-    showTrayNotification:true,
-    showTrayNotificationsWhenFocused:false,
-    singleCallback:true
+// Set android-only options
+var androidOptions = {
+    focusAppOnPush: false,
+    showAppOnTrayClick: true,
+    showTrayNotification: true,
+    showTrayNotificationsWhenFocused: false,
+    singleCallback: true
 };
 
-// set ios-only options. 
+// Set ios-only options. 
 if (Ti.Platform.name == "iPhone OS") {
-    //Sets interactive notifications as well if iOS8 and above. Interactive notifications is optional.
-    if(parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
+    // Sets interactive notifications as well if iOS8 and above. Interactive notifications is optional.
+    if (parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
         var thumbUpAction = Ti.App.iOS.createUserNotificationAction({
             identifier: "THUMBUP_IDENTIFIER",
             title: "Agree",
@@ -57,67 +57,73 @@ if (Ti.Platform.name == "iPhone OS") {
 
         var thumbUpDownCategory = Ti.App.iOS.createUserNotificationCategory({
             identifier: "THUMBUPDOWN_CATEGORY",
-         // The following actions will be displayed for an alert dialog
+ 	        // The following actions will be displayed for an alert dialog
             actionsForDefaultContext: [thumbUpAction, thumbDownAction],
-         // The following actions will be displayed for all other notifications
+            // The following actions will be displayed for all other notifications
             actionsForMinimalContext: [thumbUpAction, thumbDownAction]
         }); 
         
         var iosOptions = {
-            types: [Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT, Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND],
+            types: [
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND
+            ],
             categories: [thumbUpDownCategory]
         };
-    } 
-    else { //No support for interactive notifications, omit categories
+    }  else {
+        // No support for interactive notifications, omit categories
         var iosOptions = {
-            types: [Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT, Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND]
+            types: [
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND
+            ]
         };  
     }
 }
 
-// set blackberry-only options
-var blackberryOptions={
-    appId : "4427-7h6l37627mrr0I3956a74om7643M17l7921",
-    ppgUrl : "http://cp4427.pushapi.eval.blackberry.com",
-    usePublicPpg : true,
-    launchApplicationOnPush : true
+// Set blackberry-only options
+var blackberryOptions = {
+    appId: "4427-7h6l37627mrr0I3956a74om7643M17l7921",
+    ppgUrl: "http://cp4427.pushapi.eval.blackberry.com",
+    usePublicPpg: true,
+    launchApplicationOnPush: true
 };
 
-// set cross-platform event
-var onReceive=function(evt){
+// Set cross-platform event
+var onReceive = function(evt) {
     alert('A push notification was received!');
     console.log('A push notification was received!' + JSON.stringify(evt));
 };
 
-// set android-only event
-var onLaunched=function(evt){
+// Set android-only event
+var onLaunched = function(evt) {
     alert('A push notification was received - onLaunched');
     console.log('A push notification was received!' + JSON.stringify(evt));
 };
 
-// set android-only event
-var onFocused=function(evt){
+// Set android-only event
+var onFocused = function(evt) {
     alert('A push notification was received - onFocused');
     console.log('A push notification was received!' + JSON.stringify(evt));
 };
 
-// load library
-var ArrowDBP=require('arrowdbpush');
+// Load library
+var ArrowDBPushProvider = require('arrowdbpush');
 
-// create instance with your own or the user's username and password
-var ArrowDBPush=new ArrowDBP.ArrowDBPush('your_arrowdb_admin_uid','your_arrowdb_admin_pwd');
+// Create instance with your own or the user's username and password
+var ArrowDBPush = new ArrowDBPushProvider.ArrowDBPush('your_arrowdb_admin_uid','your_arrowdb_admin_pwd');
 
 // or make it as guest
-//var ArrowDBPush=new ArrowDBP.ArrowDBPush();
+// var ArrowDBPush = new ArrowDBP.ArrowDBPush();
 
-// set the channel to subscribe to
-var channel='All users';
+// Set the channel to subscribe to
+var channel = 'All users';
 
-// register this device
-ArrowDBPush.registerDevice(channel,onReceive,onLaunched,onFocused,androidOptions,iosOptions,blackberryOptions);
+// Register this device
+ArrowDBPush.registerDevice(channel, onReceive, onLaunched, onFocused, androidOptions, iosOptions, blackberryOptions);
 
-// unregister this device
-ArrowDBPush.unsubscribeFromChannel(channel,token,onSuccess,onFail);
+// Unregister this device
+// ArrowDBPush.unsubscribeFromChannel(channel,token,onSuccess,onFail);
 ```
 
 ## Sending messages to your subscribers
