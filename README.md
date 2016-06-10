@@ -111,7 +111,7 @@ var onFocused = function(evt) {
 var ArrowDBPushProvider = require('arrowdbpush');
 
 // Create instance with your own or the user's username and password
-var ArrowDBPush = new ArrowDBPushProvider.ArrowDBPush('your_arrowdb_admin_uid','your_arrowdb_admin_pwd');
+var ArrowDBPush = new ArrowDBPushProvider.ArrowDBPush('your_acs_admin_uid','your_acs_admin_pwd');
 
 // or make it as guest
 // var ArrowDBPush = new ArrowDBP.ArrowDBPush();
