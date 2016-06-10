@@ -4,7 +4,7 @@
     Modified by Ricardo Alcocer - @ricardoalcocer, Kiat - @cng
     Blackberry support added by Hazem Khaled - @hazemkhaled
 
-    Before being able to use this module you need to obtain your push notification keys:
+    Before being able to use this module you need to obtain your push notification keys to upload on ArrowDB:
     http://docs.appcelerator.com/platform/latest/#!/guide/Push_Notifications
 */
 
