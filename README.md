@@ -35,7 +35,7 @@ var androidOptions = {
     singleCallback: true
 };
 
-// Set ios-only options. 
+// Set ios-only options.
 if (Ti.Platform.name == "iPhone OS") {
     // Sets interactive notifications as well if iOS8 and above. Interactive notifications is optional.
     if (parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
@@ -61,8 +61,8 @@ if (Ti.Platform.name == "iPhone OS") {
             actionsForDefaultContext: [thumbUpAction, thumbDownAction],
             // The following actions will be displayed for all other notifications
             actionsForMinimalContext: [thumbUpAction, thumbDownAction]
-        }); 
-        
+        });
+
         var iosOptions = {
             types: [
                 Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
@@ -96,14 +96,14 @@ var onReceive = function(evt) {
 };
 
 // Set android-only event
-var onLaunched = function(evt) {
-    alert('A push notification was received - onLaunched');
+var onAndroidLaunched = function(evt) {
+    alert('A push notification was received - onAndroidLaunched');
     console.log('A push notification was received!' + JSON.stringify(evt));
 };
 
 // Set android-only event
-var onFocused = function(evt) {
-    alert('A push notification was received - onFocused');
+var onAndroidFocused = function(evt) {
+    alert('A push notification was received - onAndroidFocused');
     console.log('A push notification was received!' + JSON.stringify(evt));
 };
 
@@ -120,10 +120,10 @@ var ArrowDBPush = new ArrowDBPushProvider.ArrowDBPush('your_acs_admin_uid','your
 var channel = 'All users';
 
 // Register this device
-ArrowDBPush.registerDevice(channel, onReceive, onLaunched, onFocused, androidOptions, iosOptions, blackberryOptions);
+ArrowDBPush.registerDevice(channel, onReceive, iosOptions, androidOptions, blackberryOptions, onAndroidFocused, onAndroidLaunched);
 
 // Unregister this device
-// ArrowDBPush.unsubscribeFromChannel(channel,token,onSuccess,onFail);
+// ArrowDBPush.unsubscribeFromChannel(channel, token, onSuccess, onFail);
 ```
 
 ## Sending messages to your subscribers

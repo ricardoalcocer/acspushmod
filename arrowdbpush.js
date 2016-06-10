@@ -30,10 +30,11 @@ function ArrowDBPush(arrowdbuid,arrowdbpwd) {
  * @param  Object  androidOptions  [optional]
  * @param  Object  blackberryOptions  [required if Blackberry support]
  * @param  callback  onAndroidFocused  [optional]
+ * @param  callback  onAndroidLaunched  [optional]
  * @param  callback  onBlackberryLaunched  [optional]
  * @return void
  */
-ArrowDBPush.prototype.registerDevice = function(channel_name, onReceive, iosOptions, androidOptions, blackberryOptions, onAndroidFocused, onBlackberryLaunched)
+ArrowDBPush.prototype.registerDevice = function(channel_name, onReceive, iosOptions, androidOptions, blackberryOptions, onAndroidFocused, onAndroidLaunched, onBlackberryLaunched)
 {
     var that  = this,
         token = '';
