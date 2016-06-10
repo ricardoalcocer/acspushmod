@@ -1,12 +1,12 @@
 # ArrowDB Push Notifications Library
 
-Titanium CommonJS Library to register device for ArrowDB Push Notifications.  Simply add this file to your project and follow the usage instructions below.
+Titanium CommonJS Library to register device for ArrowDB Push Notifications. Simply add this file to your project and follow the usage instructions below.
 
 ## Motivation
-Push notifications with Titanium are sometimes a bit esoteric.  With this library I'm simply trying to make it super easy to implement
+Push notifications with Titanium are sometimes a bit esoteric. With this library I'm simply trying to make it super easy to implement.
 
 ## Requirements
-This library support Push Notifications via ArrowDB for iOS, Android and Blackberry.  Before you use this library, you need to:
+This library support Push Notifications via ArrowDB for iOS, Android and Blackberry. Before you use this library, you need to:
 
 * Make sure your Titanium App is provisioned for Cloud Services.
 * Obtain your Google Cloud Messaging credentials and Apple Push Notifications Certificate as explained [here](http://docs.appcelerator.com/titanium/3.0/#!/guide/Push_Notifications)
@@ -15,13 +15,13 @@ This library support Push Notifications via ArrowDB for iOS, Android and Blackbe
 ## Installation
 You could simply grab the arrowdbpush.js file and drop it into your project folder, for Titanium Classic somewhere inside **/Resources**, and for Alloy inside the **/app/lib** folder.
 
-I'm also providing the module as an actual Module Package.  To use this one, create (if you don't already have it) a modules folder in the same level as your tiapp.xml.  Then copy the commonjs folder into the modules folder.
+I'm also providing the module as an actual Module Package. To use this one, create (if you don't already have it) a modules folder in the same level as your tiapp.xml. Then copy the commonjs folder into the modules folder.
 
 After doing this, open your tiapp.xml file, look for the modules section and add the module:
 
-	<module platform="commonjs" version="1.0.0">com.alcoapps.arrowdbpushmod</module>
+	<module platform="commonjs">com.alcoapps.arrowdbpushmod</module>
 
-> NOTE: If you don't care about the module version you can simply leave out the version argument
+> NOTE: the version attribute is optional for example <module platform="foo" version="1.0.x">bar</module>
 
 ## Usage
 
