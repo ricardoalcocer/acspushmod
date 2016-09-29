@@ -1,0 +1,17 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.3
+description: ArrowDB Push Notifications Module
+author: Ricardo Alcocer
+license: MIT License
+copyright:
+
+
+# these should not be edited
+name: com.alcoapps.arrowdbpushmod
+moduleid: com.alcoapps.arrowdbpushmod
+guid: 8afd7e72-c3be-4d2a-aa94-caaf63d5b3e2
+platform: commonjs
+minsdk: 3.5.1.GA

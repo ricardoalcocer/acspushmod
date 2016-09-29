@@ -1,44 +1,44 @@
-# ACS Push Notifications Library
+# ArrowDB Push Notifications Library
 
-Titanium CommonJS Library to register device for ACS Push Notifications.  Simply add this file to your project and follow the usage instructions below.
+Titanium CommonJS Library to register device for ArrowDB Push Notifications. Simply add this file to your project and follow the usage instructions below.
 
 ## Motivation
-Push notifications with Titanium are sometimes a bit esoteric.  With this library I'm simply trying to make it super easy to implement
+Push notifications with Titanium are sometimes a bit esoteric. With this library I'm simply trying to make it super easy to implement.
 
 ## Requirements
-This library support Push Notifications via ACS for iOS, Android and Blackberry.  Before you use this library, you need to:
+This library support Push Notifications via ArrowDB for iOS, Android and Blackberry. Before you use this library, you need to:
 
 * Make sure your Titanium App is provisioned for Cloud Services.
 * Obtain your Google Cloud Messaging credentials and Apple Push Notifications Certificate as explained [here](http://docs.appcelerator.com/titanium/3.0/#!/guide/Push_Notifications)
 * Request BlackBerry 10 appId [docs](https://gist.github.com/pec1985/8ad59783cd5b4adc45a2), official support in 3.3.0.GA
 
 ## Installation
-You could simply grab the acspush.js file and drop it into your project folder, for Titanium Classic somewhere inside **/Resources**, and for Alloy inside the **/app/lib** folder.
+You could simply grab the arrowdbpush.js file and drop it into your project folder, for Titanium Classic somewhere inside **/Resources**, and for Alloy inside the **/app/lib** folder.
 
-I'm also providing the module as an actual Module Package.  To use this one, create (if you don't already have it) a modules folder in the same level as your tiapp.xml.  Then copy the commonjs folder into the modules folder.
+I'm also providing the module as an actual Module Package. To use this one, create (if you don't already have it) a modules folder in the same level as your tiapp.xml. Then copy the commonjs folder into the modules folder.
 
 After doing this, open your tiapp.xml file, look for the modules section and add the module:
 
-	<module platform="commonjs" version="1.0.0">com.alcoapps.acspushmod</module>
+	<module platform="commonjs">com.alcoapps.arrowdbpushmod</module>
 
-> NOTE: If you don't care about the module version you can simply leave out the version argument
+> NOTE: the version attribute is optional for example <module platform="foo" version="1.0.x">bar</module>
 
 ## Usage
 
 ```js
-// set android-only options
-var androidOptions={
-    focusAppOnPush:false,
-    showAppOnTrayClick:true,
-    showTrayNotification:true,
-    showTrayNotificationsWhenFocused:false,
-    singleCallback:true
+// Set android-only options
+var androidOptions = {
+    focusAppOnPush: false,
+    showAppOnTrayClick: true,
+    showTrayNotification: true,
+    showTrayNotificationsWhenFocused: false,
+    singleCallback: true
 };
 
-// set ios-only options. 
+// Set ios-only options.
 if (Ti.Platform.name == "iPhone OS") {
-    //Sets interactive notifications as well if iOS8 and above. Interactive notifications is optional.
-    if(parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
+    // Sets interactive notifications as well if iOS8 and above. Interactive notifications is optional.
+    if (parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
         var thumbUpAction = Ti.App.iOS.createUserNotificationAction({
             identifier: "THUMBUP_IDENTIFIER",
             title: "Agree",
@@ -57,74 +57,80 @@ if (Ti.Platform.name == "iPhone OS") {
 
         var thumbUpDownCategory = Ti.App.iOS.createUserNotificationCategory({
             identifier: "THUMBUPDOWN_CATEGORY",
-         // The following actions will be displayed for an alert dialog
+ 	        // The following actions will be displayed for an alert dialog
             actionsForDefaultContext: [thumbUpAction, thumbDownAction],
-         // The following actions will be displayed for all other notifications
+            // The following actions will be displayed for all other notifications
             actionsForMinimalContext: [thumbUpAction, thumbDownAction]
-        }); 
-        
+        });
+
         var iosOptions = {
-            types: [Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT, Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND],
+            types: [
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND
+            ],
             categories: [thumbUpDownCategory]
         };
-    } 
-    else { //No support for interactive notifications, omit categories
+    }  else {
+        // No support for interactive notifications, omit categories
         var iosOptions = {
-            types: [Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT, Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND]
+            types: [
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND
+            ]
         };  
     }
 }
 
-// set blackberry-only options
-var blackberryOptions={
-    appId : "4427-7h6l37627mrr0I3956a74om7643M17l7921",
-    ppgUrl : "http://cp4427.pushapi.eval.blackberry.com",
-    usePublicPpg : true,
-    launchApplicationOnPush : true
+// Set blackberry-only options
+var blackberryOptions = {
+    appId: "4427-7h6l37627mrr0I3956a74om7643M17l7921",
+    ppgUrl: "http://cp4427.pushapi.eval.blackberry.com",
+    usePublicPpg: true,
+    launchApplicationOnPush: true
 };
 
-// set cross-platform event
-var onReceive=function(evt){
+// Set cross-platform event
+var onReceive = function(evt) {
     alert('A push notification was received!');
     console.log('A push notification was received!' + JSON.stringify(evt));
 };
 
-// set android-only event
-var onLaunched=function(evt){
-    alert('A push notification was received - onLaunched');
+// Set android-only event
+var onAndroidLaunched = function(evt) {
+    alert('A push notification was received - onAndroidLaunched');
     console.log('A push notification was received!' + JSON.stringify(evt));
 };
 
-// set android-only event
-var onFocused=function(evt){
-    alert('A push notification was received - onFocused');
+// Set android-only event
+var onAndroidFocused = function(evt) {
+    alert('A push notification was received - onAndroidFocused');
     console.log('A push notification was received!' + JSON.stringify(evt));
 };
 
-// load library
-var ACSP=require('acspush');
+// Load library
+var ArrowDBPushProvider = require('arrowdbpush');
 
-// create instance with your own or the user's username and password
-var ACSPush=new ACSP.ACSPush('your_acs_admin_uid','your_acs_admin_pwd');
+// Create instance with your own or the user's username and password
+var ArrowDBPush = new ArrowDBPushProvider.ArrowDBPush('your_acs_admin_uid','your_acs_admin_pwd');
 
 // or make it as guest
-//var ACSPush=new ACSP.ACSPush();
+// var ArrowDBPush = new ArrowDBP.ArrowDBPush();
 
-// set the channel to subscribe to
-var channel='All users';
+// Set the channel to subscribe to
+var channel = 'All users';
 
-// register this device
-ACSPush.registerDevice(channel,onReceive,onLaunched,onFocused,androidOptions,iosOptions,blackberryOptions);
+// Register this device
+ArrowDBPush.registerDevice(channel, onReceive, iosOptions, androidOptions, blackberryOptions, onAndroidFocused, onAndroidLaunched);
 
-// unregister this device
-ACSPush.unsubscribeFromChannel(channel,token,onSuccess,onFail);
+// Unregister this device
+// ArrowDBPush.unsubscribeFromChannel(channel, token, onSuccess, onFail);
 ```
 
 ## Sending messages to your subscribers
 
-### Using the ACS Dashboard
+### Using the ArrowDB Dashboard
 
-To send to your iOS or Android registered devices simply log on to your ACS Dashboard, go to the Push Notifications Tab, fill out the screen and send.
+To send to your iOS or Android registered devices simply log on to your ArrowDB Dashboard, go to the Push Notifications Tab, fill out the screen and send.
 
 ![acsiosandroid](http://s27.postimg.org/5ixtazxwz/Screen_Shot_2014_03_31_at_11_51_28_AM.png)
 
@@ -141,7 +147,7 @@ If you wish to send Push Notifications from other apps, or as a result of an ope
 
 * PHP : [https://github.com/ricardoalcocer/acsphppushnotifications](https://github.com/ricardoalcocer/acsphppushnotifications)
 * PERL : [http://ulizama.com/2014/05/using-perl-to-send-acs-push-notifications/](http://ulizama.com/2014/05/using-perl-to-send-acs-push-notifications/)
-* .NET : [https://github.com/Xadeu/ACSPushNotifications](https://github.com/Xadeu/ACSPushNotifications)
+* .NET : [https://github.com/Xadeu/ArrowDBPushNotifications](https://github.com/Xadeu/ArrowDBPushNotifications)
 
 ## Credits
 This module is based on code by my buddy [Pablo Rodríguez](https://github.com/pablorr18), now with some additional sugar and converted into a reusable CommonJS Module.
