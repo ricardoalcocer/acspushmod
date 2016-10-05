@@ -147,7 +147,7 @@ If you wish to send Push Notifications from other apps, or as a result of an ope
 
 * PHP : [https://github.com/ricardoalcocer/acsphppushnotifications](https://github.com/ricardoalcocer/acsphppushnotifications)
 * PERL : [http://ulizama.com/2014/05/using-perl-to-send-acs-push-notifications/](http://ulizama.com/2014/05/using-perl-to-send-acs-push-notifications/)
-* .NET : [https://github.com/Xadeu/ArrowDBPushNotifications](https://github.com/Xadeu/ArrowDBPushNotifications)
+* .NET : [https://github.com/Xadeu/ACSPushNotifications](https://github.com/Xadeu/ACSPushNotifications)
 
 ## Credits
 This module is based on code by my buddy [Pablo Rodríguez](https://github.com/pablorr18), now with some additional sugar and converted into a reusable CommonJS Module.
