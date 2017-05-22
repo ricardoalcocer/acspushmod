@@ -1,0 +1,9 @@
+{
+    "description": "ArrowDB Push Notifications Module",
+    "directories": {
+        "lib": "."
+    },
+    "main": "com.alcoapps.arrowdbpushmod",
+    "name": "com.alcoapps.arrowdbpushmod",
+    "version": "1.0.4"
+}
